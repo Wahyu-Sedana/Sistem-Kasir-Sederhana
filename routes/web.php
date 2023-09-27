@@ -22,12 +22,12 @@ Route::middleware(['guest'])->group(function () {
 });
 
 Route::get('/home', function() {
-    return redirect('/dashboard');
+    return redirect('/home');
 });
 
 Route::middleware(['auth'])->group(function () {
-    Route::get('/dashboard', [HomeController::class, 'index']);
-    Route::get('/dashboard/kasir', [HomeController::class, 'kasir']);
+    Route::get('/home', [HomeController::class, 'index']);
+    Route::get('/home/kasir', [HomeController::class, 'kasir'])->middleware('userAkses:kasir');
     Route::get('/logout', [AuthController::class, 'logout']);
 });
 

@@ -19,14 +19,18 @@ class AuthController extends Controller
             'email.required' => 'Email wajib diisi',
             'password.required' => 'Password wajib diisi'
         ]);
-        
+
         $infoLogin = [
             'email' => $request->email,
             'password' => $request->password
         ];
 
         if(Auth::attempt($infoLogin)){
-            return redirect('dashboard');
+            if(Auth::user()->role == 'admin'){
+                return redirect('home');
+            } elseif(Auth::user()->role == 'kasir'){
+                return redirect('home');
+            }
         }else {
             return redirect('')->withErrors('Username dan password yang di massukan tidak sesuai')->withInput();
         }
