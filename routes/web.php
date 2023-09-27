@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\AuthController;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,4 +16,20 @@ use App\Http\Controllers\HomeController;
 |
 */
 
-Route::get('/', [HomeController::class, 'index']);
+Route::middleware(['guest'])->group(function () {
+    Route::get('/', [AuthController::class, 'index'])->name('login');
+    Route::post('/', [AuthController::class, 'login']);
+});
+
+Route::get('/home', function() {
+    return redirect('/dashboard');
+});
+
+Route::middleware(['auth'])->group(function () {
+    Route::get('/dashboard', [HomeController::class, 'index']);
+    Route::get('/dashboard/kasir', [HomeController::class, 'kasir']);
+    Route::get('/logout', [AuthController::class, 'logout']);
+});
+
+
+
