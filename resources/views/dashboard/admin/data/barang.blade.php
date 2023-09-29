@@ -14,10 +14,10 @@
         <div class="row">
             <div class="col-12">
                 <div class="card">
-                    <div class="csrd-body">
+                    <div class="card-body">
                         <h4 class="card-title">Data Table</h4>
                         <div class="table-responsive">
-                            <table class="table table-bordered">
+                            <table class="table table-striped table-bordered zero-configuration">
                                 <thead>
                                     <tr>
                                         <th>Name</th>

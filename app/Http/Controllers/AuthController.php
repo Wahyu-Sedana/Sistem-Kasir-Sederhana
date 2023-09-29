@@ -26,10 +26,11 @@ class AuthController extends Controller
         ];
 
         if(Auth::attempt($infoLogin)){
+            $request->session()->regenerate();
             if(Auth::user()->role == 'admin'){
-                return redirect('home');
+                return redirect('/admin');
             } elseif(Auth::user()->role == 'kasir'){
-                return redirect('home');
+                return redirect('/kasir');
             }
         }else {
             return redirect('')->withErrors('Username dan password yang di massukan tidak sesuai')->withInput();
@@ -38,6 +39,8 @@ class AuthController extends Controller
 
     function logout(){
         Auth::logout();
+        request()->session()->invalidate();
+        request()->session()->regenerateToken();
         return redirect('');
     }
 

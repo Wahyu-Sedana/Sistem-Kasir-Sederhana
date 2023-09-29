@@ -2,8 +2,9 @@
 
 use Illuminate\Support\Facades\Route;
 
-use App\Http\Controllers\HomeController;
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\KasirController;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,14 +22,20 @@ Route::middleware(['guest'])->group(function () {
     Route::post('/', [AuthController::class, 'login']);
 });
 
-Route::get('/home', function() {
-    return redirect('/home');
+Route::get('/', function() {
+    return view('index');
 });
 
 Route::middleware(['auth'])->group(function () {
-    Route::get('/home', [HomeController::class, 'index']);
-    Route::get('/home/kasir', [HomeController::class, 'kasir'])->middleware('userAkses:kasir');
-    Route::get('/logout', [AuthController::class, 'logout']);
+    Route::get('/admin', [AdminController::class, 'index'])->middleware('userAkses:admin');
+    Route::get('/user', [AdminController::class, 'user'])->middleware('userAkses:admin');
+    Route::post('/user/store', [AdminController::class, 'createUser'])->middleware('userAkses:admin');
+    Route::get('/barang', [AdminController::class, 'barang'])->middleware('userAkses:admin');
+    Route::get('/jenisbarang', [AdminController::class, 'jenisbarang'])->middleware('userAkses:admin');
+
+    Route::get('/kasir', [KasirController::class, 'index'])->middleware('userAkses:kasir');
+
+    Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 });
 
 
