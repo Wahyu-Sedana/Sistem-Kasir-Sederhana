@@ -4,13 +4,18 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Models\JenisBarang;
+use App\Models\Barang;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
 class AdminController extends Controller
 {
     public function index(){
-        return view('dashboard/admin/index');
+        $data = array(
+            'title' => 'Admin Page',
+            'users' => User::all(),
+        );
+        return view('dashboard/admin/index', $data)->with('i', (request()->input('page', 1) - 1) * 10);
     }
 
     public function user(){
@@ -78,7 +83,41 @@ class AdminController extends Controller
     }
 
     public function barang(){
-        return view('dashboard/admin/data/barang');
+        $data = array(
+            'title' => 'Admin Page',
+            'jenisbarang' => JenisBarang::all(),
+            'barang' => Barang::join('tb_jenis_barang', 'tb_jenis_barang.id', '=', 'tb_barang.id_jenis')
+                                ->select('tb_barang.*', 'tb_jenis_barang.nama_jenis')
+                                ->get()
+        );
+        return view('dashboard/admin/data/barang', $data)->with('i', (request()->input('page', 1) - 1) * 10);
+    }
+
+    public function createbarang(Request $request){
+        Barang::create([
+            'id_jenis' => $request->id_jenis,
+            'nama_barang' => $request->nama_barang,
+            'harga' => $request->harga,
+            'stok' => $request->stok,
+        ]);
+        return redirect('/admin/barang')->with('success', 'Data berhasil di tambahkan');
+    }
+
+    public function editbarang(Request $request, $id){
+        Barang::where('id', $id)
+            ->where('id', $id)
+                ->update([
+                    'id_jenis' => $request->id_jenis,
+                    'nama_barang' => $request->nama_barang,
+                    'stok' => $request->stok,
+                    'harga' => $request->harga,
+        ]);
+        return redirect('/admin/barang')->with('success', 'Data berhasil di update');
+    }
+
+    public function deletebarang(Request $request, $id){
+        $nama_barang = Barang::where('id', $id)->delete();
+        return redirect('/admin/barang')->with('success', 'Data berhasil di hapus');
     }
 
 }

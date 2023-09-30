@@ -33,6 +33,9 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/admin/user/delete/{id}', [AdminController::class, 'deleteUser'])->middleware('userAkses:admin');
 
     Route::get('/admin/barang', [AdminController::class, 'barang'])->middleware('userAkses:admin');
+    Route::post('/admin/barang/store', [AdminController::class, 'createbarang'])->middleware('userAkses:admin');
+    Route::post('/admin/barang/edit/{id}', [AdminController::class, 'editbarang'])->middleware('userAkses:admin');
+    Route::post('/admin/barang/delete/{id}', [AdminController::class, 'deletebarang'])->middleware('userAkses:admin');
 
     Route::get('/admin/jenisbarang', [AdminController::class, 'jenisbarang'])->middleware('userAkses:admin');
     Route::post('/admin/jenisbarang/store', [AdminController::class, 'createjenisbarang'])->middleware('userAkses:admin');
