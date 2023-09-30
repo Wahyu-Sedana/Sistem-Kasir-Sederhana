@@ -11,7 +11,7 @@
     <link rel="icon" type="image/png" sizes="16x16" href="/assets/images/favicon.png">
     <!-- <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous"> -->
     <link href="/assets/css/style.css" rel="stylesheet">
-    <link href="/assets/plugins/sweetalert/css/sweetalert.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/5.0.7/sweetalert2.min.css" rel="stylesheet">
 
 </head>
 
@@ -75,14 +75,25 @@
     <script src="/assets/js/gleek.js"></script>
     <script src="/assets/js/styleSwitcher.js"></script>
 
-    <script src="/assets/plugins/sweetalert/js/sweetalert.min.js"></script>
-    <script src="/assets/plugins/sweetalert/js/sweetalert.init.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
 
     @if (session('success'))
     <script>
-        document.querySelector(".sweet-success").onclick = function () {
-            swal("Hey, Good job !!", "You clicked the button !!", "success")
-        }
+        swal({
+            title: "{{ session('error') }}",
+            text: "{{ session('error') }}",
+            icon: "success",
+            buttons: {
+                confirm: {
+                    text: "confirm me",
+                    value: true,
+                    visible: true,
+                    className: "btn btn-success",
+                    closeModal: true
+                }
+            }
+        })
     </script>
     @endif
 </body>

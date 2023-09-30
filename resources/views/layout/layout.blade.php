@@ -10,8 +10,9 @@
     <link rel="icon" type="image/png" sizes="16x16" href="../../../../assets/images/favicon.png">
     <!-- Custom Stylesheet -->
     <link href="../../../../assets/plugins/tables/css/datatable/dataTables.bootstrap4.min.css" rel="stylesheet">
-    <link href="../../../../assets/plugins/sweetalert/css/sweetalert.css" rel="stylesheet">
     <link href="../../../../assets/css/style.css" rel="stylesheet">
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/5.0.7/sweetalert2.min.css" rel="stylesheet">
 
 </head>
 
@@ -116,13 +117,13 @@
                         </a>
                         <ul aria-expanded="false">
                             @if (Auth::user()->role == 'admin')
-                                <li><a href="/barang">Data Barang</a></li>
-                                <li><a href="/jenisbarang">Data Jenis Barang</a></li>
-                                <li><a href="/user">Data User</a></li>
+                                <li><a href="/admin/barang">Data Barang</a></li>
+                                <li><a href="/admin/jenisbarang">Data Jenis Barang</a></li>
+                                <li><a href="/admin/user">Data User</a></li>
                             @endif
                             @if (Auth::user()->role == 'kasir')
-                                <li><a href="/barang">Data Barang</a></li>
-                                <li><a href="/jenisbarang">Data Jenis Barang</a></li>
+                                <li><a href="/kasir/barang">Data Barang</a></li>
+                                <li><a href="/kasir /jenisbarang">Data Jenis Barang</a></li>
                             @endif
                         </ul>
                     </li>
@@ -165,17 +166,26 @@
     <script src="../../../../assets/plugins/tables/js/datatable/dataTables.bootstrap4.min.js"></script>
     <script src="../../../../assets/plugins/tables/js/datatable-init/datatable-basic.min.js"></script>
 
-    <script src="../../../../assets/plugins/sweetalert/js/sweetalert.min.js"></script>
-    <script src="../../../../assets/plugins/sweetalert/js/sweetalert.init.js"></script>
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
     @if (session('success'))
     <script>
-        document.querySelector(".sweet-success").onclick = function () {
-            swal("Hey, Good job !!", "You clicked the button !!", "success")
-        }
+        swal({
+            title: "{{ session('success') }}",
+            text: "{{ session('success') }}",
+            icon: "success",
+            buttons: {
+                confirm: {
+                    text: "confirm me",
+                    value: true,
+                    visible: true,
+                    className: "btn btn-success",
+                    closeModal: true
+                }
+            }
+        })
     </script>
     @endif
-
 </body>
 
 </html>
