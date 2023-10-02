@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Models\JenisBarang;
+use App\Models\Laporan;
+use App\Models\Diskon;
 use App\Models\Barang;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -118,6 +120,32 @@ class AdminController extends Controller
     public function deletebarang(Request $request, $id){
         $nama_barang = Barang::where('id', $id)->delete();
         return redirect('/admin/barang')->with('success', 'Data berhasil di hapus');
+    }
+
+    public function diskon(){
+        $data = array(
+            'title' => 'Admin Page',
+            'diskon' => Diskon::all(),
+        );
+        return view('dashboard/admin/data/diskon', $data)->with('i', (request()->input('page', 1) - 1) * 10);
+    }
+
+    public function editdiskon(Request $request, $id){
+        Diskon::where('id', $id)
+            ->where('id', $id)
+                ->update([
+                    'total_belanja' => $request->total_belanja,
+                    'diskon' => $request->diskon,
+        ]);
+        return redirect('/admin/diskon')->with('success', 'Data berhasil di update');
+    }
+
+    public function laporan(){
+        $data = array(
+            'title' => 'Admin Page',
+            'laporan' => Laporan::all(),
+        );
+        return view('dashboard/admin/data/laporan', $data)->with('i', (request()->input('page', 1) - 1) * 10);
     }
 
 }

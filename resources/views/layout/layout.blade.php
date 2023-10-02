@@ -68,6 +68,16 @@
                 </div>
                 <div class="header-right">
                     <ul class="clearfix">
+                        @if(Auth::user()->role === 'admin')
+                            <li class="icons dropdown d-md-flex">
+                                <span>Welcome, Admin</span>
+                            </li>
+                        @endif
+                        @if(Auth::user()->role === 'kasir')
+                            <li class="icons dropdown d-md-flex">
+                                <span>Welcome, Kasir</span>
+                            </li>
+                        @endif
                         <li class="icons dropdown">
                             <div class="user-img c-pointer position-relative"   data-toggle="dropdown">
                                 <span class="activity active"></span>
@@ -107,7 +117,7 @@
                     </li>
                     <li class="nav-label">UI Components</li>
                     <li>
-                        <a href="widgets.html" aria-expanded="false">
+                        <a href="/admin/diskon" aria-expanded="false">
                             <i class="icon-badge menu-icon"></i><span class="nav-text">Diskon</span>
                         </a>
                     </li>
@@ -122,16 +132,17 @@
                                 <li><a href="/admin/user">Data User</a></li>
                             @endif
                             @if (Auth::user()->role == 'kasir')
-                                <li><a href="/kasir/barang">Data Barang</a></li>
-                                <li><a href="/kasir /jenisbarang">Data Jenis Barang</a></li>
+                                <li><a href="/kasir/transaksi">Data TransaksiJenis Barang</a></li>
                             @endif
                         </ul>
                     </li>
+                    @if (Auth::user()->role == 'admin')
                     <li>
-                        <a href="widgets.html" aria-expanded="false">
-                            <i class="icon-badge menu-icon"></i><span class="nav-text">Laporan</span>
+                        <a href="/admin/laporan" aria-expanded="false">
+                            <i class="fas fa-file"></i><span class="nav-text">Laporan</span>
                         </a>
                     </li>
+                    @endif
                 </ul>
             </div>
         </div>

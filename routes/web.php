@@ -42,6 +42,11 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/admin/jenisbarang/edit/{id}', [AdminController::class, 'editjenisbarang'])->middleware('userAkses:admin');
     Route::post('/admin/jenisbarang/delete/{id}', [AdminController::class, 'deletejenisbarang'])->middleware('userAkses:admin');
 
+    Route::get('/admin/diskon', [AdminController::class, 'diskon'])->middleware('userAkses:admin');
+    Route::post('/admin/diskon/edit/{id}', [AdminController::class, 'editdiskon'])->middleware('userAkses:admin');
+
+    Route::get('/admin/laporan', [AdminController::class, 'laporan'])->middleware('userAkses:admin');
+
     Route::get('/kasir', [KasirController::class, 'index'])->middleware('userAkses:kasir');
 
     Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
