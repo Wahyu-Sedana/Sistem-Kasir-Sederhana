@@ -39,6 +39,7 @@ RUN mkdir -p /home/www/.composer && \
 
 # Copy the application files
 COPY . /var/www
+
 # Copy the .env.example file and generate an application key
 COPY .env.example .env
 RUN php artisan key:generate
