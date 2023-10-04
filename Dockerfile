@@ -34,7 +34,6 @@ RUN groupadd -g 1000 www
 RUN useradd -u 1000 -ms /bin/bash -g www www
 
 # Create a system user to run Composer and Artisan commands
-RUN useradd -m -G www-data -u $uid -d /home/www www
 RUN mkdir -p /home/www/.composer && \
     chown -R www:www /home/www
 
@@ -43,7 +42,6 @@ COPY . /var/www
 # Copy the .env.example file and generate an application key
 COPY .env.example .env
 RUN php artisan key:generate
-RUN php artisan migrate
 
 # Change ownership of storage/logs
 RUN mkdir -p storage/logs && chown -R www:www storage/logs
